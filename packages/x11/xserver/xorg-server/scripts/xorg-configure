@@ -25,6 +25,12 @@
 mkdir -p /var/lib
 mkdir -p /var/run
 
+# Allow to force which GPU to configure
+FORCEGPU_FILE=/storage/.config/forcegpu
+if [ -e "$FORCEGPU_FILE" ] && [ "$1" != "`cat $FORCEGPU_FILE`" ]; then
+  exit 0
+fi
+
 # HACK. we have xorg-configure@%. so nice race
 # can happen on multi-gpu setups
 if [ -e /var/run/xorg-configure.done ] ; then
